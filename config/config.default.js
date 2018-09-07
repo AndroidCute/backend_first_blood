@@ -36,9 +36,9 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1501055229355_649';
 
   config.security = {
-    ignore: '/api/',
+    ignore: '/',
     csrf: {
-      ignoreJSON: true,
+      ignore: ctx => true,
     },
   };
 
