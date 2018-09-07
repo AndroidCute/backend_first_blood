@@ -1,0 +1,65 @@
+CREATE TABLE IF NOT EXISTS `user` (
+    `id` int(16) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `nickname` VARCHAR(64) DEFAULT NULL UNIQUE,
+    `mobile` TEXT NOT NULL,
+    `password` VARCHAR(128) NOT NULL DEFAULT '',
+    `status` INT(8) DEFAULT 0,
+    `created` DATETIME NOT NULL DEFAULT current_timestamp,
+    PRIMARY KEY ( `id` )
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE IF NOT EXISTS `userinfo` (
+    `id` INT(16) NOT NULL,
+    `nickname` VARCHAR(100) DEFAULT NULL,
+    `age` INT(8) UNSIGNED,
+    `mobile` VARCHAR(20) NOT NULL DEFAULT '',
+    `email` VARCHAR(100) DEFAULT NULL,
+    `sex` TINYINT(1) DEFAULT NULL,
+    `address` VARCHAR(100) DEFAULT NULL,
+    `created` DATETIME NOT NULL DEFAULT current_timestamp,
+    PRIMARY KEY ( `id` )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE IF NOT EXISTS `address` (
+    `id` INT(16) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(64) NOT NULL DEFAULT '',
+    `userid` INT(16) NOT NULL,
+    `mobile` VARCHAR(16) NOT NULL,
+    `province` VARCHAR(64) NOT NULL,
+    `city` VARCHAR(64) NOT NULL,
+    `street` VARCHAR(64) NOT NULL,
+    `address` VARCHAR(256) NOT NULL,
+    `created` DATETIME NOT NULL DEFAULT current_timestamp,
+    `updated` DATETIME DEFAULT NULL,
+    `status` INT(8) DEFAULT 0,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE IF NOT EXISTS `goods` (
+    `id` INT(16) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `userid` INT(16) NOT NULL,
+    `name` VARCHAR(64) NOT NULL DEFAULT '',
+    `desc` VARCHAR(256) NOT NULL DEFAULT '',
+    `price` DOUBLE(7, 2) NOT NULL,
+    `count` INT(64) UNSIGNED NOT NULL,
+    `bought` INT(64) UNSIGNED NOT NULL,
+    `status` INT(8) DEFAULT 0,
+    `created` DATETIME NOT NULL DEFAULT current_timestamp,
+    `updated` DATETIME DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE IF NOT EXISTS `indent` (
+    `id` INT(16) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `userid` INT(16) NOT NULL,
+    `goodsid` INT(16) NOT NULL,
+    `name` VARCHAR(64) NOT NULL DEFAULT '',
+    `price` DOUBLE(7, 2) NOT NULL,
+    `bought` INT(64) UNSIGNED NOT NULL,
+    `status` INT(8) DEFAULT 0,
+    `created` DATETIME NOT NULL DEFAULT current_timestamp,
+    `updated` DATETIME DEFAULT NULL,
+    `address` INT(16) UNSIGNED NOT NULL,
+    `allprice` DOUBLE(7, 2) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
