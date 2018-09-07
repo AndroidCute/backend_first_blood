@@ -100,9 +100,9 @@ module.exports = app => {
       }
     }
 
-    * login(mobile, password) {
+    * login(nickname, password) {
       try {
-        const res = yield getOne(app, tables.user, { mobile });
+        const res = yield getOne(app, tables.user, { nickname });
         if (aesDecrypt(res.password) === password) {
           return getToken(app, res.id);
         }

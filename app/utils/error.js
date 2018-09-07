@@ -31,7 +31,7 @@
 
 const error = {
   ErrSucceed: {
-    code: 0x0,
+    code: 200,
     msg: 'success',
   },
   ErrInvalidParams: {

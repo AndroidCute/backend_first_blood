@@ -8,7 +8,7 @@ module.exports = app => {
       const { ctx } = this;
       const goodsInfo = ctx.request.body;
       if (!checkParams(goodsInfo.name, goodsInfo.card, goodsInfo.sex, goodsInfo.age, goodsInfo.native, goodsInfo.science, goodsInfo.specialty, goodsInfo.class)) {
-        ctx.body = newErrorWithMessage(error.ErrInvalidParams);
+        ctx.body = newErrorWithMessage(error.ErrInvalidParams, "参数错误");
         return;
       }
       const token = ctx.state.user;

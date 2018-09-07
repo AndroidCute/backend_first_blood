@@ -3,9 +3,9 @@
 exports.mysql = {
   client: {
       host: '127.0.0.1',
-      port: '13306',
+      port: '3307',
       user: 'root',
-      password: '',
+      password: '111111',
       database: 'student',
   },
   app: true,

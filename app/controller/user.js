@@ -122,16 +122,18 @@ module.exports = app => {
 
     * login() {
       const { ctx } = this;
-      const { mobile, password } = ctx.request.body;
-      if (!checkParams(mobile, password)) {
+      const { nickname, password } = ctx.request.body;
+      ctx.logger.warn("Print req", ctx.request)
+      ctx.logger.warn("Print....", nickname, password)
+      if (!checkParams(nickname, password)) {
         ctx.body = newErrorWithMessage(error.ErrInvalidParams);
         return;
       }
-      const res = yield ctx.service.user.login(mobile, password);
+      const res = yield ctx.service.user.login(nickname, password);
       if (res) {
         ctx.body = newErrorWithMessage(error.ErrSucceed, res);
       } else {
-        ctx.body = newErrorWithMessage(error.ErrInvalidParams);
+        ctx.body = newErrorWithMessage(error.ErrInvalidParams, "账号名或密码错误");
       }
     }
 

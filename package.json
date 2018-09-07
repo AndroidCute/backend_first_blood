@@ -6,6 +6,7 @@
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "egg": "^1.4.0",
+    "egg-cors": "^2.1.0",
     "egg-jwt": "^2.1.0",
     "egg-mysql": "^3.0.0",
     "knex": "^0.13.0",
