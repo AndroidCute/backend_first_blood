@@ -24,8 +24,8 @@ module.exports = app => {
   app.get('/test/knex', 'test.knexTest');
 
   // goods
-  app.post('/student/create', app.jwt, 'student.create');
-  app.get('/student/getAll', app.jwt, 'student.getAll');
-  app.post('/student/modify', app.jwt, 'student.modify');
-  app.post('/student/deleted', app.jwt, 'student.deleted');
+  app.post('/student/create', 'student.create');
+  app.get('/student/getAll', 'student.getAll');
+  app.post('/student/modify', 'student.modify');
+  app.post('/student/deleted', 'student.deleted');
 };

@@ -26,7 +26,12 @@ module.exports = app => {
 
     * getAll() {
       try {
-        return yield getAll(app, tables.student);
+        let res = yield getAll(app, tables.student);
+        res.map((item)=>{
+          item.key = item.id;
+          return item
+        })
+        return res
       } catch (e) {
         return null;
       }
