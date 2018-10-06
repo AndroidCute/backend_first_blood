@@ -5,13 +5,14 @@ const { goodsStatus } = require('../utils/status');
 
 module.exports = app => {
   class student extends app.Service {
-    * create(goodsInfo, id) {
+    * create(goodsInfo) {
       try {
         const res = yield create(app, tables.student, {
           name: goodsInfo.name,
           card : goodsInfo.card,
           sex : goodsInfo.sex,
           age : goodsInfo.age,
+          avatar: goodsInfo.avatar,
           native : goodsInfo.native,
           science : goodsInfo.science,
           specialty : goodsInfo.specialty,
@@ -19,7 +20,7 @@ module.exports = app => {
         });
         return res.affectedRows;
       } catch (e) {
-        app.logger.error("create err:", e)
+        app.logger.error("create err:", e);
         return false;
       }
     }
@@ -37,17 +38,31 @@ module.exports = app => {
       }
     }
 
+    * getList(where) {
+      try {
+        let res = yield getAll(app, tables.student, where);
+        res.map((item)=>{
+          item.key = item.id;
+          return item
+        })
+        return res
+      } catch (e) {
+        return null;
+      }
+    }
+
     * modify(goodsInfo) {
       const now = new Date();
       try {
-        const goods = yield getOne(app, tables.student, { id: goodsInfo.id });
+        const goods = yield getOne(app, tables.student, { card: goodsInfo.card });
         console.log(goodsInfo);
         const res = yield modify(app, tables.student, {
-          id: goodsInfo.id,
-          name: goodsInfo.name ? goodsInfo.name : goods.name,
+          id: goods.id,
           card : goodsInfo.card ? goodsInfo.card : goods.card,
+          name: goodsInfo.name ? goodsInfo.name : goods.name,
           sex : goodsInfo.sex ? goodsInfo.sex : goods.sex,
           age : goodsInfo.age ? goodsInfo.age : goods.age,
+          avatar: goodsInfo.avatar ? goodsInfo.avatar : goods.avatar,
           native : goodsInfo.native ? goodsInfo.native : goods.native,
           science : goodsInfo.science ? goodsInfo.science : goods.science,
           specialty : goodsInfo.apecialty ? goodsInfo.specialty : goods.specialty,

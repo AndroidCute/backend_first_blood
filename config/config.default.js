@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 module.exports = appInfo => {
   const config = {};
 
@@ -11,13 +13,13 @@ module.exports = appInfo => {
       enable: false,
       ignoreJSON: true,
     },
-    domainWhiteList: '*'
+    domainWhiteList: '*',
   };
 
   config.cors = {
     origin: '*',
     allowMethods: 'GET, POST, OPTIONS',
-  }
+  };
 
   return config;
 };

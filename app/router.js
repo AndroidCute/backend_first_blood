@@ -26,6 +26,10 @@ module.exports = app => {
   // goods
   app.post('/student/create', 'student.create');
   app.get('/student/getAll', 'student.getAll');
+  app.post('/student/getList', 'student.getList');
   app.post('/student/modify', 'student.modify');
   app.post('/student/deleted', 'student.deleted');
+
+  // upload
+  app.post('/upload/avator', 'upload.upload');
 };

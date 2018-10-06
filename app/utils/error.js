@@ -54,6 +54,14 @@ const error = {
     code: 0x5,
     msg: 'name format error',
   },
+  ErrCardExist: {
+    code: 0x6,
+    msg: 'student card exist',
+  },
+  ErrUpload: {
+    code: 0x7,
+    msg: 'upload file error',
+  },
 
   // 需要登录
   ErrLoginRequired: {

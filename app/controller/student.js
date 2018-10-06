@@ -11,8 +11,18 @@ module.exports = app => {
         ctx.body = newErrorWithMessage(error.ErrInvalidParams, "参数错误");
         return;
       }
-      const token = ctx.state.user;
-      const res = yield ctx.service.student.create(goodsInfo, token.id);
+
+      const student = {card: goodsInfo.card}
+      const getRes = yield ctx.service.student.getList(student);
+      ctx.logger.info("GetRes:", getRes)
+      const isRes = getRes === null || getRes.length !== 0
+      ctx.logger.info("GetRes:", isRes)
+      if (isRes) {
+        ctx.body = newErrorWithMessage(error.ErrCardExist, "学号已存在");
+        return;
+      }
+
+      const res = yield ctx.service.student.create(goodsInfo);
 
       if (res === operateCode.SUCCESS_AFFECTED_ROWS) {
         ctx.body = newErrorWithMessage(error.ErrSucceed);
@@ -24,6 +34,17 @@ module.exports = app => {
     * getAll() {
       const { ctx } = this;
       const res = yield ctx.service.student.getAll();
+      if (res) {
+        ctx.body = newErrorWithMessage(error.ErrSucceed, res);
+      } else {
+        ctx.body = newErrorWithMessage(error.ErrMysql);
+      }
+    }
+
+    * getList() {
+      const { ctx } = this;
+      const goodsInfo = ctx.request.body;
+      const res = yield ctx.service.student.getList(goodsInfo);
       if (res) {
         ctx.body = newErrorWithMessage(error.ErrSucceed, res);
       } else {
