@@ -98,6 +98,29 @@ function* getConn(app) {
   return yield app.mysql.beginTransaction();
 }
 
+function* pieAgeCount(app) {
+  let age21;
+  let age22;
+  let age23;
+  let age24;
+  let res;
+  let statistics=[];
+  try {
+    age21 = yield app.mysql.query(' select count(1) from student where age=21');
+    age22 = yield app.mysql.query(' select count(1) from student where age=22');
+    age23 = yield app.mysql.query(' select count(1) from student where age=23');
+    age24 = yield app.mysql.query(' select count(1) from student where age=24');
+    statistics.push({ age: 21, count: age21 });
+    statistics.push({ age: 22, count: age22 });
+    statistics.push({ age: 23, count: age23 });
+    statistics.push({ age: 24, count: age24 });
+  } catch (e) {
+    throw e;
+  }
+  res = statistics;
+  return res;
+}
+
 module.exports = {
   tables,
 
@@ -106,6 +129,6 @@ module.exports = {
   getAll,
   modify,
   deleteOne,
-
+  pieAgeCount,
   getConn,
 };

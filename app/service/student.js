@@ -1,6 +1,6 @@
 'use strict';
 
-const { tables, create, getAll, modify, getOne, deleteOne } = require('../utils/mysqlKit');
+const { tables, create, getAll, modify, getOne, deleteOne, pieAgeCount } = require('../utils/mysqlKit');
 const { goodsStatus } = require('../utils/status');
 
 module.exports = app => {
@@ -9,18 +9,18 @@ module.exports = app => {
       try {
         const res = yield create(app, tables.student, {
           name: goodsInfo.name,
-          card : goodsInfo.card,
-          sex : goodsInfo.sex,
-          age : goodsInfo.age,
+          card: goodsInfo.card,
+          sex: goodsInfo.sex,
+          age: goodsInfo.age,
           avatar: goodsInfo.avatar,
-          native : goodsInfo.native,
-          science : goodsInfo.science,
-          specialty : goodsInfo.specialty,
-          class : goodsInfo.class,
+          native: goodsInfo.native,
+          science: goodsInfo.science,
+          specialty: goodsInfo.specialty,
+          class: goodsInfo.class,
         });
         return res.affectedRows;
       } catch (e) {
-        app.logger.error("create err:", e);
+        app.logger.error('create err:', e);
         return false;
       }
     }
@@ -28,11 +28,11 @@ module.exports = app => {
     * getAll() {
       try {
         let res = yield getAll(app, tables.student);
-        res.map((item)=>{
+        res.map((item) => {
           item.key = item.id;
-          return item
-        })
-        return res
+          return item;
+        });
+        return res;
       } catch (e) {
         return null;
       }
@@ -41,11 +41,11 @@ module.exports = app => {
     * getList(where) {
       try {
         let res = yield getAll(app, tables.student, where);
-        res.map((item)=>{
+        res.map((item) => {
           item.key = item.id;
-          return item
-        })
-        return res
+          return item;
+        });
+        return res;
       } catch (e) {
         return null;
       }
@@ -58,15 +58,15 @@ module.exports = app => {
         console.log(goodsInfo);
         const res = yield modify(app, tables.student, {
           id: goods.id,
-          card : goodsInfo.card ? goodsInfo.card : goods.card,
+          card: goodsInfo.card ? goodsInfo.card : goods.card,
           name: goodsInfo.name ? goodsInfo.name : goods.name,
-          sex : goodsInfo.sex ? goodsInfo.sex : goods.sex,
-          age : goodsInfo.age ? goodsInfo.age : goods.age,
+          sex: goodsInfo.sex ? goodsInfo.sex : goods.sex,
+          age: goodsInfo.age ? goodsInfo.age : goods.age,
           avatar: goodsInfo.avatar ? goodsInfo.avatar : goods.avatar,
-          native : goodsInfo.native ? goodsInfo.native : goods.native,
-          science : goodsInfo.science ? goodsInfo.science : goods.science,
-          specialty : goodsInfo.apecialty ? goodsInfo.specialty : goods.specialty,
-          class : goodsStatus.class ? goodsInfo.class : goods.class,
+          native: goodsInfo.native ? goodsInfo.native : goods.native,
+          science: goodsInfo.science ? goodsInfo.science : goods.science,
+          specialty: goodsInfo.apecialty ? goodsInfo.specialty : goods.specialty,
+          class: goodsStatus.class ? goodsInfo.class : goods.class,
         });
         return res.affectedRows;
       } catch (e) {
@@ -74,7 +74,7 @@ module.exports = app => {
       }
     }
 
-    * delete (id) {
+    * delete(id) {
       try {
         const res = yield deleteOne(app, tables.student, {
           id,
@@ -82,6 +82,16 @@ module.exports = app => {
         return res.affectedRows;
       } catch (e) {
         return false;
+      }
+    }
+
+
+    * pieAgeCount() {
+      try {
+        let res = yield pieAgeCount();
+        return res;
+      } catch (e) {
+        return null;
       }
     }
 

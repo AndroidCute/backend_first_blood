@@ -29,6 +29,7 @@ module.exports = app => {
   app.post('/student/getList', 'student.getList');
   app.post('/student/modify', 'student.modify');
   app.post('/student/deleted', 'student.deleted');
+  app.get('/student/pieAgeCount', 'student.pieAgeCount');
 
   // upload
   app.post('/upload/avator', 'upload.upload');

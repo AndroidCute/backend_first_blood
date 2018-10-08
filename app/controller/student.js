@@ -83,6 +83,16 @@ module.exports = app => {
       }
     }
 
+    *pieAgeCount() {
+      const { ctx } = this;
+      const res = yield ctx.service.student.pieAgeCount();
+      ctx.logger.info("Getres:", res);
+      if (res) {
+        ctx.body = newErrorWithMessage(error.ErrSucceed, res);
+      } else {
+        ctx.body = newErrorWithMessage(error.ErrMysql);
+      }
+    }
   }
   return StudentController;
 };
