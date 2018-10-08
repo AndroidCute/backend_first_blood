@@ -94,31 +94,31 @@ function* deleteOne(app, tableName, payload) {
   return res;
 }
 
-function* getConn(app) {
-  return yield app.mysql.beginTransaction();
-}
-
 function* pieAgeCount(app) {
-  let age21;
-  let age22;
-  let age23;
-  let age24;
+  let ages;
+  let category;
+  let count;
   let res;
   let statistics=[];
   try {
-    age21 = yield app.mysql.query(' select count(1) from student where age=21');
-    age22 = yield app.mysql.query(' select count(1) from student where age=22');
-    age23 = yield app.mysql.query(' select count(1) from student where age=23');
-    age24 = yield app.mysql.query(' select count(1) from student where age=24');
-    statistics.push({ age: 21, count: age21 });
-    statistics.push({ age: 22, count: age22 });
-    statistics.push({ age: 23, count: age23 });
-    statistics.push({ age: 24, count: age24 });
+    ages = yield app.mysql.query(' select distinct age from student');
+    category = ages.length
+    app.logger.info("ages:", ages)
+
+    for (let i=0; i<category; i++) {
+      count = yield app.mysql.query(' select count(1) num from student where age=?', ages[i].age);
+      app.logger.info("count[", i, "]:", count)
+      statistics.push({ x: ages[i].age, y: count[0].num });
+    }
   } catch (e) {
     throw e;
   }
   res = statistics;
   return res;
+}
+
+function* getConn(app) {
+  return yield app.mysql.beginTransaction();
 }
 
 module.exports = {

@@ -88,7 +88,7 @@ module.exports = app => {
 
     * pieAgeCount() {
       try {
-        let res = yield pieAgeCount();
+        let res = yield pieAgeCount(app);
         return res;
       } catch (e) {
         return null;
